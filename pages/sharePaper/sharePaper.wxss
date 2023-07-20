@@ -1,0 +1,34 @@
+/* pages/sharePaper/sharePaper.wxss */
+.share-paper{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #EDF0F5;
+}
+.content{
+  padding: 32rpx 24rpx;
+}
+.share-paper-item{
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+}
+
+.title{
+  color: #00298E;
+  height: 200rpx;
+}
+.item-title{
+  color: #A1A5B3;
+  line-height: 80rpx;
+  font-size: 0.8rem;
+}
+.preview{
+  border: #1EA0FA solid 2px;
+  border-radius: 32rpx;
+  background-color: #ffffff;
+  color: #1EA0FA;
+  padding: 8rpx 32rpx;
+  margin-left: 32rpx;
+}

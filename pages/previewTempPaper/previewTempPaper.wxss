@@ -1,0 +1,53 @@
+/* pages/previewTempPaper/previewTempPaper.wxss */
+.preview-paper{
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+.preview-paper-title{
+  font-weight: bold;
+  text-align: center;
+  color: #0095FF;
+}
+.preview-paper-item{
+  margin-bottom: 10rpx;
+}
+.preview-paper-item-content{
+  position: relative;
+  background-color: #FFFFFF;
+  padding: 32rpx;
+}
+.preview-paper-item-title{
+  display: flex;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-box{
+  position: fixed;
+  bottom: 60rpx;
+  left: 0;
+  width: 90%;
+  z-index: 999;
+  padding: 60rpx 40rpx;
+}
+
+/* 问题类型样式 */
+.question-root{
+  padding: 16rpx;
+  /* border: solid #E3E3E3 1px; */
+}
+.question-item{
+  font-size: 14px;
+}
+
+.mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  
+}

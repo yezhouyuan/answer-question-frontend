@@ -1,0 +1,91 @@
+<!--pages/previewTempPaper/previewTempPaper.wxml-->
+<view class="preview-paper">
+  <form bind:submit="submit">
+    <view class="mask"></view>
+    <view class="preview-paper-item">
+      <view class="preview-paper-item-content preview-paper-title">
+        <text>{{ curPaper.title }}</text>
+      </view>
+    </view>
+    <view
+      wx:for="{{ curPaper.questionList }}"
+      wx:for-item="question"
+      wx:for-index="questionIndex"
+      wx:key="id"
+    >
+      <view 
+        class="preview-paper-item-content"
+        data-question="{{ question }}"
+        data-questionIndex="{{ questionIndex }}"
+      >
+        <view class="preview-paper-item-title">
+          <view>
+            <text class="blod" style="margin-right: 8rpx;">{{ questionIndex + 1 }}.</text>        
+          </view>
+          <view>
+            <text class="blod">{{ question.title }}</text>
+            <text class="blod" style="color: #A69999;" model:hidden="{{question.type != 2}}">【多选题】</text>        
+          </view>
+        </view>
+        <!-- 单选题 -->
+        <block wx:if="{{ question.type == 1}}">
+          <van-radio-group
+            id="{{ question.id }}"
+            name="{{ question.id }}" 
+            model:value="{{ question.value }}"
+            bind:change="onOptionChange"
+          >
+            <van-radio
+              custom-class="question-root"
+              class="question-item"
+              wx:for="{{ question.options }}"
+              wx:key="id"
+              wx:for-item="option"
+              wx:for-index="optionIndex"
+              name="{{ option.name }}"
+              icon-size="14px"
+            >{{ option.value }}
+            </van-radio>
+          </van-radio-group>
+        </block>
+        <!-- 多选题 -->
+        <block wx:if="{{ question.type == 2}}">
+          <van-checkbox-group
+            id="{{ question.id }}"
+            name="{{ question.id }}" 
+            model:value="{{ question.value }}"
+            bind:change="onOptionChange"
+          >
+            <van-checkbox
+              custom-class="question-root"
+              class="question-item"
+              wx:for="{{ question.options }}"
+              wx:key="id"
+              wx:for-item="option"
+              wx:for-index="optionIndex"
+              name="{{ option.name }}"
+              icon-size="14px"
+              shape="square" 
+            >{{ option.value }}
+            </van-checkbox>
+          </van-checkbox-group>
+        </block>
+        <!-- 填空题 -->
+        <block wx:if="{{ question.type == 3}}">
+          <van-field
+            name="{{ question.id }}"
+            model:value="{{ question.velue }}"
+            clearable
+            left-icon="{{ question.icon }}"
+          />
+        </block>
+      </view>
+
+    </view>
+    <view class="add-box">
+      <van-button type="info" size="large" bind:tap="onCopy">
+        复制此问卷
+      </van-button>
+    </view>
+  </form>
+</view>

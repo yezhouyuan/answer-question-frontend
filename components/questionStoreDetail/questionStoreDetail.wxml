@@ -1,0 +1,105 @@
+<!--components/questionStoreDetail/questionStoreDetail.wxml-->
+<view class="question-store-detail">
+  <view class="question-store-detail-content">
+
+    <van-checkbox-group value="{{ selectedList }}" bind:change="checkBoxChange">
+      <view
+        wx:for="{{ curPaper.questionList }}"
+        wx:for-item="question"
+        wx:for-index="questionIndex"
+        wx:key="id"
+        model:class="{{ selectedIndex === questionIndex? 'edit-paper-item selected': 'edit-paper-item' }}"
+      >
+        <view 
+          class="edit-paper-item-content"
+          data-question="{{ question }}"
+          data-questionIndex="{{ questionIndex }}"
+          bind:tap="itemSelected"
+        >
+          <view class="edit-paper-item-mask"></view>
+          <view class="edit-paper-item-title">
+            <view>
+              <text model:hidden="{{ !question.requied }}" style="color: red;">*</text>    
+            </view>
+            <view>
+              <text class="bold">{{ question.title }}</text>
+              <text class="bold" style="color: #A69999;" model:hidden="{{question.type != 2}}">[多选题]</text>        
+            </view>
+            <van-checkbox 
+              name="{{ questionIndex }}" 
+              custom-class="checked"
+              shape="square"
+              catch:tap="noop"
+              class="checkboxes-{{ questionIndex }}"
+            >
+            </van-checkbox>
+          </view>
+          <!-- 单选题 -->
+          <block wx:if="{{ question.type == 1}}">
+            <van-radio-group>
+              <van-radio
+                custom-class="question-root"
+                class="question-item"
+                wx:for="{{ question.options }}"
+                wx:key="id"
+                wx:for-item="option"
+                wx:for-index="optionIndex"
+                name="{{ option.name }}"
+                icon-size="14px"
+              >{{ option.value }}
+              </van-radio>
+            </van-radio-group>
+          </block>
+          <!-- 多选题 -->
+          <block wx:if="{{ question.type == 2}}">
+            <van-checkbox-group>
+              <van-checkbox
+                custom-class="question-root"
+                class="question-item"
+                wx:for="{{ question.options }}"
+                wx:key="id"
+                wx:for-item="option"
+                wx:for-index="optionIndex"
+                name="{{ option.name }}"
+                icon-size="14px"
+                shape="square" 
+              >{{ option.value }}
+              </van-checkbox>
+            </van-checkbox-group>
+          </block>
+          <!-- 填空题 -->
+          <block wx:if="{{ question.type == 3}}">
+            <van-field
+              model:value="{{ question.velue }}"
+              clearable
+              readonly
+              left-icon="{{ question.icon }}"
+            />
+          </block>
+        </view>
+      </view>
+    </van-checkbox-group>
+
+  </view>
+
+  <view class="footer">
+    <view class="footer-left" bind:tap="">
+      <view class="bold" style="color: #008CFF;">{{ selectedList.length }}</view>
+      <view>已选</view>
+    </view>
+    <view class="footer-right" bind:tap="completed">
+      完成选题
+    </view>
+  </view>
+  
+  <!-- 问卷操作弹出层 -->
+  <van-popup
+    model:show="{{ showPopup }}"
+    position="bottom"
+    closeable
+    custom-style="height: 75%;padding: 8px;background-color: #F5F5F5;"
+    bind:close="onPopupClose"
+  >
+
+  </van-popup>
+</view>

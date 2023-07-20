@@ -1,0 +1,26 @@
+/**app.wxss**/
+@import './miniprogram_npm/@vant/weapp/common/index.wxss';
+@import './assets/styles/iconfont.wxss';
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+/* 主题颜色 */
+.primary-text-color{ color: #008CFF; }
+.primary-bg-color{ background-color: #008CFF; }
+.placeholer-color{ color: #C8C9CC; }
+
+.hidden{ display: none;}
+.flex-col{ display: flex;flex-direction: column; }
+.text-ellipsis{ display: block;white-space: nowrap; width: 300rpx;text-overflow: ellipsis;overflow: hidden; }
+.bold{ font-weight: bold; }
+
+/* 全局颜色 */
+page{
+  --sidebar-selected-border-color: #008CFF;
+}

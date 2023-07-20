@@ -1,0 +1,212 @@
+<!--pages/editPaper/editPaper.wxml-->
+<view class="edit-paper">
+  <view model:class="{{selectedIndex == -1? 'edit-paper-item selected': 'edit-paper-item'}}">
+    <view 
+      class="edit-paper-item-content" 
+      data-curPaper="{{ curPaper }}"
+      data-questionIndex="-1"
+      bind:tap="itemSelected"
+    >
+      <view class="bold">{{ curPaper.title }}</view>
+      <view>{{ curPaper.description? curPaper.description: '添加问卷说明' }}</view>
+    </view>
+    <view wx:if="{{ selectedIndex == -1 }}" class="edit-paper-item-handle">
+      <view class="flex-col" data-curPaper="{{ curPaper }}" bind:tap="onEdit">
+        <van-icon name="edit" size="18px" />  
+        <view>编辑</view>
+      </view>
+    </view>
+  </view>
+  <view
+    wx:for="{{ curPaper.questionList }}"
+    wx:for-item="question"
+    wx:for-index="questionIndex"
+    wx:key="id"
+    model:class="{{ selectedIndex === questionIndex? 'edit-paper-item selected': 'edit-paper-item' }}"
+  >
+    <view 
+      class="edit-paper-item-content"
+      data-question="{{ question }}"
+      data-questionIndex="{{ questionIndex }}"
+      bind:tap="itemSelected"
+    >
+      <view class="edit-paper-item-mask"></view>
+      <view class="edit-paper-item-title">
+        <view>
+          <text model:hidden="{{ !question.requied }}" style="color: red;">*</text>
+          <text class="blod">{{ questionIndex + 1 }}.</text>        
+        </view>
+        <view>
+          <text class="blod">{{ question.title }}</text>
+          <text class="blod" style="color: #A69999;" model:hidden="{{question.type != 2}}">[多选题]</text>        
+        </view>
+      </view>
+      <!-- 单选题 -->
+      <block wx:if="{{ question.type == 1}}">
+        <van-radio-group>
+          <van-radio
+            custom-class="question-root"
+            class="question-item"
+            wx:for="{{ question.options }}"
+            wx:key="id"
+            wx:for-item="option"
+            wx:for-index="optionIndex"
+            name="{{ option.name }}"
+            icon-size="14px"
+          >{{ option.value }}
+          </van-radio>
+        </van-radio-group>
+      </block>
+      <!-- 多选题 -->
+      <block wx:if="{{ question.type == 2}}">
+        <van-checkbox-group>
+          <van-checkbox
+            custom-class="question-root"
+            class="question-item"
+            wx:for="{{ question.options }}"
+            wx:key="id"
+            wx:for-item="option"
+            wx:for-index="optionIndex"
+            name="{{ option.name }}"
+            icon-size="14px"
+            shape="square" 
+          >{{ option.value }}
+          </van-checkbox>
+        </van-checkbox-group>
+      </block>
+      <!-- 填空题 -->
+      <block wx:if="{{ question.type == 3}}">
+        <van-field
+          model:value="{{ question.velue }}"
+          clearable
+          readonly
+          left-icon="{{ question.icon }}"
+        />
+      </block>
+    </view>
+
+    <!-- 操作栏 -->
+    <view wx:if="{{ selectedIndex === questionIndex }}" class="edit-paper-item-handle">
+      <view 
+        class="flex-col" 
+        data-curQuestion="{{ question }}"
+        data-curQuestionIndex="{{ questionIndex }}"
+        bind:tap="onEdit"
+      >
+        <van-icon name="edit" size="18px" />  
+        <view>编辑</view>
+      </view>
+      <view 
+        class="flex-col" 
+        data-curQuestion="{{ question }}"
+        data-curQuestionIndex="{{ questionIndex }}"
+        bind:tap="onCopy"
+      >
+        <van-icon class-prefix="icon" name="fuzhi" size="18px" />  
+        <view>复制</view>
+      </view>
+      <view 
+        class="flex-col" 
+        data-curQuestion="{{ question }}"
+        data-curQuestionIndex="{{ questionIndex }}"
+        bind:tap="onMoveUp"
+      >
+        <van-icon name="arrow-up" size="18px" />  
+        <view>上移</view>
+      </view>
+      <view 
+        class="flex-col" 
+        data-curQuestion="{{ question }}"
+        data-curQuestionIndex="{{ questionIndex }}"
+        bind:tap="onMoveDown"
+      >
+        <van-icon name="arrow-down" size="18px" />  
+        <view>下移</view>
+      </view>
+      <view 
+        class="flex-col"
+        data-curQuestion="{{ question }}"
+        data-curQuestionIndex="{{ questionIndex }}"
+        bind:tap="onDelete"
+      >
+        <van-icon name="delete-o" size="18px" />  
+        <view>删除</view>
+      </view>
+    </view>
+  </view>
+  <view class="add-box">
+    <van-button type="default" size="large" icon="plus" bind:tap="onPopupShow">
+      添加题目
+    </van-button>
+  </view>
+  
+  <van-tabbar placeholder="true" bind:change="onChange" z-index="999">
+    <van-tabbar-item name="add" icon="add-o">题目</van-tabbar-item>
+    <!-- <van-tabbar-item name="setting" icon="setting-o">设置</van-tabbar-item> -->
+    <van-tabbar-item name="preview" icon="eye-o">预览</van-tabbar-item>
+    <van-tabbar-item name="save" icon="completed">保存</van-tabbar-item>
+  </van-tabbar>
+
+
+  <!-- 添加题目弹出层 -->
+  <van-popup
+    model:show="{{ addPopupVisible }}"
+    position="bottom"
+    custom-style="height: 100%;padding: 28rpx;background-color: #F5F5F5;"
+    bind:close="onPopupClose"
+  >
+    <view class="title">添加基础题型</view>
+    <van-grid icon-size="48rpx" custom-class="popup-grid" column-num="4">
+      <van-grid-item 
+        icon-prefix="icon"
+        icon="{{ base.icon }}" 
+        text="{{ base.text }}"
+        wx:for="{{ baseList }}"
+        wx:key="id"
+        wx:for-item="base"
+        wx:for-index="baseIndex"
+        bind:tap="onEdit"
+        data-curQuestion="{{ base }}"
+        data-type="add"
+      />
+    </van-grid>
+
+    <view class="title">添加题目模板</view>
+    <van-grid icon-size="48rpx" custom-class="popup-grid" column-num="4">
+      <van-grid-item 
+        icon-prefix="icon"
+        icon="{{ template.icon }}" 
+        text="{{ template.text }}"
+        wx:for="{{ templateList }}"
+        wx:key="id"
+        wx:for-item="template"
+        wx:for-index="templateIndex"
+        bind:tap="onEdit"
+        data-curQuestion="{{ template }}"
+        data-type="add"
+      />
+    </van-grid>
+
+    <view class="title">批量添加题目</view>
+    <van-grid icon-size="48rpx" custom-class="popup-grid" column-num="4">
+      <van-grid-item 
+        icon-prefix="icon"
+        icon="{{ batch.icon }}" 
+        text="{{ batch.text }}"
+        url="{{ '../../components/' + batch.url + '/' + batch.url }}"
+        wx:for="{{ batchList }}"
+        wx:key="id"
+        wx:for-item="batch"
+        wx:for-index="batchIndex"
+        bind:tap="onPopupClose"
+      />
+    </van-grid>
+    <van-button
+      custom-style="margin-top: 50rpx;"
+      type="default" 
+      size="large" 
+      bind:tap="onPopupClose"
+    >返回</van-button>
+  </van-popup>
+
+</view>

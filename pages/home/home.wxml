@@ -1,0 +1,139 @@
+<!--pages/home/home.wxml-->
+<view class="home">
+  <van-sticky>
+    <view class="home-tabbar" >
+      <block wx:if="{{!searchVisible}}">
+        <van-icon name="wap-nav" color="#C8C9CC" size="36px" bind:tap="showMenu" />
+        <van-search style="flex: 1;" disabled shape="round" placeholder="搜索问卷" bind:click-input="showSearch" />
+        <van-button round size="small" type="info" bind:tap="onCreate">创建</van-button>
+      </block>
+      <block wx:else>
+        <van-search
+          model:value="{{ searchParams }}"
+          style="flex: 1;" 
+          placeholder="输入关键词搜索" 
+          bind:search="onSearch" 
+          bind:cancel="onSearchCancel"
+          show-action
+          shape="round"
+        />
+      </block>
+    </view>
+  </van-sticky>
+
+  <view class="home-content">
+    <scroll-view
+      class="scroll"
+      scroll-y="true"
+      style="height: 100%;"
+      bind:scrolltoupper="upper" 
+      bind:scrolltolower="lower" 
+      bind:scroll="scroll" 
+      scroll-into-view="{{ toView }}" 
+      scroll-top="{{ scrollTop }}"
+    >
+      <view 
+        class="scroll-item" 
+        wx:for="{{ paperList }}" 
+        wx:key="id"
+        wx:for-item="item"
+        wx:for-index="index"
+        bind:tap="showPaperHandle"
+        data-curPaper="{{ item }}"
+        data-curPaperIndex="{{ index }}"
+      >
+        <van-row>
+          <van-col span="18">
+            <view class="text title text-ellipsis" style="width: 420rpx;">{{ item.title}}</view>
+            <view class="text placeholer-color status">
+              <text class="dot" style="{{ item.status? 'background-color: #3CB300;': ''}}"></text>
+              <text>{{ item.status? '已发布': '未发布' }}</text>
+            </view>        
+          </van-col>
+          <van-col span="6" style="text-align: center;">
+            <view class="text bold primary-text-color">{{ item.count? item.count: 0 }}</view>
+            <view class="text font-size placeholer-color">答卷数量</view>    
+          </van-col>
+        </van-row>
+      </view>
+    </scroll-view>
+  </view>
+
+  
+  <!-- 菜单弹出层 -->
+  <van-popup 
+    model:show="{{ showAsidePopup }}" 
+    position="left"
+    custom-style="height: 100%"
+    bind:close="onPopupClose"
+  >
+    <van-sidebar active-key="{{ activeKey }}">
+      <van-sidebar-item title="个人中心" bind:click="gotoMine">
+      </van-sidebar-item>
+      <!-- <van-sidebar-item title="标签名" />
+      <van-sidebar-item title="标签名" /> -->
+    </van-sidebar>
+  </van-popup>
+
+
+  <!-- 问卷操作弹出层 -->
+  <van-popup
+    model:show="{{ showPopup }}"
+    position="bottom"
+    closeable
+    custom-style="height: 75%;padding: 8px;background-color: #F5F5F5;"
+    bind:close="onPopupClose"
+  >
+    <view class="popup-header" style="display: flex;">
+      <text class="text-ellipsis">{{ curPaper.title }}</text>
+      <text>(ID:{{ curPaper.id }})</text>
+    </view>
+    <van-row>
+      <van-col span="6">
+        <view wx:if="{{ !curPaper.status }}" class="popup-item-button" bind:tap="onRelease">
+          <van-icon name="guide-o" size="24px" color="#008CFF" />  
+          <view>发布</view>
+        </view>
+        <view wx:else class="popup-item-button" bind:tap="onRelease">
+          <van-icon name="pause-circle" size="24px" color="#008CFF" />  
+          <view>暂停</view>
+        </view>
+      </van-col>
+      <van-col span="6">
+        <view class="popup-item-button" bind:tap="onCopy">
+          <van-icon class-prefix="icon" name="fuzhi" size="24px" color="#008CFF" />  
+          <view>复制</view>
+        </view>
+      </van-col>
+      <van-col span="6">
+        <view class="popup-item-button" bind:tap="remove">
+          <van-icon name="delete-o" size="24px" color="#008CFF" />  
+          <view>删除</view>
+        </view>
+      </van-col>
+    </van-row>
+    <view class="item-title">
+      <text>设计问卷</text>
+    </view>
+    <van-row>
+      <van-col span="6">
+        <view class="popup-item-button" bind:tap="edit">
+          <van-icon name="edit" size="24px" color="#008CFF" />  
+          <view>编辑</view>
+        </view>
+      </van-col>
+    </van-row>
+    <view class="item-title">
+      <text>发送问卷</text>
+    </view>
+    <van-row>
+      <van-col span="6">
+        <view class="popup-item-button" bind:tap="onShare">
+          <van-icon name="share-o" size="24px" color="#008CFF" />  
+          <view>分享</view>
+        </view>
+      </van-col>
+    </van-row>
+  </van-popup>
+
+</view>

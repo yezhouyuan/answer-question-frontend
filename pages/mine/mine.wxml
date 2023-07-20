@@ -1,0 +1,12 @@
+<!--pages/mine/mine.wxml-->
+<view class="mine">
+  <view class="avatar">
+    <van-image round width="160rpx" height="160rpx" src="{{ userInfo.avatarUrl }}" />
+  </view>
+  <van-cell-group>
+    <van-cell title-class="title" value-class="value" title="用户名" value="{{ userInfo.nickName }}" />
+    <van-cell title-class="title" value-class="value" title="账号ID" value="{{ }}" />
+    <van-cell title-class="title" value-class="value" title="性别" value="{{ userInfo.gender? '女': '未知' }}" />
+    <van-cell title-class="title" value-class="value" title="手机号码" value="" />
+  </van-cell-group>
+</view>

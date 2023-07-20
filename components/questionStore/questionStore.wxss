@@ -1,0 +1,7 @@
+/* components/questionStore/questionStore.wxss */
+.question-store{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F3F4F5;
+}
+

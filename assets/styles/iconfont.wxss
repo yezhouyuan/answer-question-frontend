@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4041971 */
+  src: url('/assets/styles/iconfont.woff2?t=1682568498444') format('woff2'),
+       url('/assets/styles/iconfont.woff?t=1682568498444') format('woff'),
+       url('/assets/styles/iconfont.ttf?t=1682568498444') format('truetype');
+}
+
+.icon {
+  font-family: "iconfont" !important;
+  font-size: 36rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tikuxuanti:before {
+  content: "\e60e";
+}
+
+.icon-icon-person:before {
+  content: "\e607";
+}
+
+.icon-bangdingshouji:before {
+  content: "\e688";
+}
+
+.icon-gender:before {
+  content: "\e6d6";
+}
+
+.icon-xingming:before {
+  content: "\e615";
+}
+
+.icon-shouji:before {
+  content: "\e628";
+}
+
+.icon-tiankongti:before {
+  content: "\e62b";
+}
+
+.icon-riqi:before {
+  content: "\eb2a";
+}
+
+.icon-duoxuanti:before {
+  content: "\e67f";
+}
+
+.icon-danxuanti:before {
+  content: "\e6b1";
+}
+
+.icon-xingbie-xian:before {
+  content: "\e89e";
+}
+
+.icon-SVG:before {
+  content: "\e621";
+}
+
+.icon-fuzhi:before {
+  content: "\e60a";
+}
+

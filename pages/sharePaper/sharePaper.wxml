@@ -1,0 +1,24 @@
+<!--pages/sharePaper/sharePaper.wxml-->
+<view class="share-paper">
+  <view class="content">
+    <view></view>
+    <view class="share-paper-item title">
+      {{ curPaper? curPaper.title: '暂无标题' }}
+    </view>
+    <view class="item-title">
+      <text>分享</text>
+      <text class="preview" bind:tap="gotToPreview">查看问卷</text>
+    </view>
+    <view class="bold">
+      <van-button 
+        custom-style="justify-content: start;padding-left: 32rpx;" 
+        icon="share" 
+        type="default" 
+        size="large"
+        open-type="share"
+      >
+        转发
+      </van-button>
+    </view>
+  </view>
+</view>

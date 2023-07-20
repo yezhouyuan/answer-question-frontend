@@ -1,0 +1,32 @@
+<!--pages/createPaper/createPaper.wxml-->
+<view class="create-paper">
+  <view class="create-paper-content">
+
+    <form class="form" bindsubmit="submit">
+      <view class="header">
+        <text style="color: red; margin-right: 16rpx;">*</text>
+        <text>问卷名称</text>
+      </view>
+      <textarea
+        model:value="{{ title }}"
+        class="form-textarea"
+        placeholder="请输入问卷名称" 
+        name="title"
+      >
+      </textarea>
+      <view hidden="{{ !isEdit }}" class="header">
+        <text>问卷说明</text>
+      </view>
+      <textarea
+        hidden="{{ !isEdit }}"
+        model:value="{{ description }}"
+        class="form-textarea"
+        placeholder="请输入问卷说明" 
+        name="description"
+      >
+      </textarea>
+      <van-button wx:if="{{ !isEdit }}" type="info" form-type="submit" size="large">创建问卷</van-button>
+      <van-button wx:else type="info" size="large" bind:click="back">确定</van-button>
+    </form>
+  </view>
+</view>

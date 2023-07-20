@@ -1,0 +1,44 @@
+<!--components/questionStore/questionStore.wxml-->
+<view class="question-store">
+  <view class="question-store-tabbar" >
+    <block wx:if="{{!searchVisible}}">
+      <van-search 
+        disabled 
+        input-align="center"
+        shape="round" 
+        placeholder="输入关键词搜索题库" 
+        bind:click-input="showSearch" 
+      />
+    </block>
+    <block wx:else>
+      <van-search
+        model:value="{{ searchParams }}"
+        style="flex: 1;" 
+        placeholder="输入关键词搜索题库" 
+        bind:search="onSearch" 
+        bind:cancel="onSearchCancel"
+        show-action
+        shape="round"
+      />
+    </block>
+  </view>
+  <view class="question-store-content">
+    <view style="margin-top: 12rpx;">
+      <van-cell
+        wx:for="{{ paperList }}"
+        wx:key="id"
+        wx:for-item="paper"
+        wx:for-index="paperIndex"
+        border 
+        is-link
+        data-paper="{{ paper }}"
+        bind:click="gotoDetail"
+      >
+        <view class="text-ellipsis" style="width: 600rpx;" slot="title">
+          {{ paper.title }}
+        </view>
+      </van-cell>
+    </view>
+  </view>
+
+</view>

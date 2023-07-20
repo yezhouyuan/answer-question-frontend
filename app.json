@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/editPaper/editPaper",
+    "pages/templatePaper/templatePaper",
+    "pages/createPaper/createPaper",
+    "components/questionConfig/questionConfig",
+    "pages/previewPaper/perviewPaper",
+    "components/questionStore/questionStore",
+    "components/questionStoreDetail/questionStoreDetail",
+    "pages/sharePaper/sharePaper",
+    "pages/previewTempPaper/previewTempPaper",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-checkbox-group": "@vant/weapp/checkbox-group/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "van-sidebar": "@vant/weapp/sidebar/index",
+    "van-sidebar-item": "@vant/weapp/sidebar-item/index",
+    "van-image": "@vant/weapp/image/index"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

@@ -1,0 +1,24 @@
+/* components/questionConfig/questionConfig.wxss */
+.question-config{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+}
+
+.question-config-item{
+  padding: 32rpx;
+  background-color: white;
+}
+
+
+.title{
+  font-size: 0.8rem;
+  line-height: 50rpx;
+  color: #ABABAB;
+}
+
+.cell{
+  padding: 12rpx 16rpx !important;
+}

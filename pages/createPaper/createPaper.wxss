@@ -1,0 +1,27 @@
+/* pages/createPaper/createPaper.wxss */
+.create-paper{
+  width: 100vw;
+  height: 100vh;
+}
+
+.create-paper-content{
+  height: 100%;
+  margin: 32rpx;
+}
+.header{
+  line-height: 80rpx;
+}
+.form-textarea{
+  width: calc(100% - 34px);
+  height: 15%;
+  border: solid 1px #C8C9CC;
+  border-radius: 8rpx;
+  margin-bottom: 40rpx;
+  padding: 36rpx;
+}
+
+.warnning{
+  color: red; 
+  font-size: 0.8rem;
+  line-height: 60rpx;
+}

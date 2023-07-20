@@ -1,0 +1,115 @@
+<!--components/questionConfig/questionConfig.wxml-->
+<view class="question-config">
+  <form bind:submit="confirm">
+    <!-- 标题 -->
+    <view class="title-box question-config-item">
+      <view class="title">
+        <text style="color: red;margin-right: 8rpx;">*</text>
+        <text>标题</text>
+      </view>
+      <view>
+        <van-field
+          name="title"
+          model:custom-style="{{ inputStyle }}"
+          value="{{ curQuestion.title }}"
+          type="textarea"
+          autosize
+          clearable
+          placeholder="请输入标题"
+          left-icon="{{ curQuestion.icon }}"
+          bind:focus="inputOnFouces"
+          bind:blur="inputOnBlur"
+          bind:input="titleInput"
+        />
+        <text>{{ test.value }}</text>
+      </view>
+    </view>
+    <!-- 选项 -->
+    <block wx:if="{{ curQuestion.type != 3  }}">
+      <view class="title" style="padding-left: 32rpx;">
+        <text>选项</text>
+      </view>
+      <view class="question-config-item" style="padding: 0 8rpx;">
+        <block 
+          wx:for="{{ curQuestion.options }}"
+          wx:for-item="option"
+          wx:for-index="optionIndex"
+          wx:key="id"
+          data-option="{{ option }}"
+          data-optionIndex="{{ optionIndex }}"
+        > 
+          <van-field
+            name="{{ 'option' + optionIndex}}"
+            value="{{ option.value }}"
+            clearable
+            placeholder="请输入选项"
+            data-optionIndex="{{ optionIndex }}"
+            bind:input="optionInput"
+          >
+            <van-icon 
+              slot="left-icon" 
+              name="clear" 
+              size="36rpx" 
+              color="red"
+              custom-style="margin-right: 8rpx;"
+              bind:tap="delOptionItem"
+              data-optionIndex="{{ optionIndex }}"
+            />
+          </van-field>      
+        </block>
+        <van-cell 
+          title="添加选项" 
+          border="{{false}}"
+          center
+          title-style="color: #1989FA;"
+          bind:tap="addOptionItem"
+        >
+          <van-icon 
+            slot="icon" 
+            name="add" 
+            size="36rpx" 
+            color="#1989FA"
+            custom-style="margin-right: 8rpx;"
+          />
+        </van-cell>
+      </view>
+    </block>
+  
+
+    <!-- 设置 -->
+    <block>
+      <view class="title" style="padding-left: 32rpx;">
+        <text>设置</text>
+      </view>
+      <view class="question-config-item" style="padding-top: 0px;">
+        <van-cell 
+          title="此题目必须回答" 
+          title-style=""
+          size="large"
+          center
+          custom-class="cell"
+        >
+          <van-switch 
+            checked="{{ curQuestion.requied }}" 
+            bind:change="quesionRequiedChange" 
+          />
+        </van-cell>
+        <van-button 
+          size="large"
+          type="info" 
+          form-type="submit"
+          custom-style="margin-top: 32rpx;"
+        >确认</van-button>
+        <van-button 
+          size="large" 
+          type="default" 
+          custom-style="margin-top: 32rpx;"
+          bind:tap="back"
+        >返回</van-button>
+      </view>    
+    </block>
+
+  </form>
+
+
+</view>
